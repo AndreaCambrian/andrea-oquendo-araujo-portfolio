@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andrea Oquendo Araujo — Portfolio</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--teal:#1A7A8A;--teal-light:#E6F4F6;--teal-mid:#0f5a67;--text:#1F2937;--muted:#4B5563;--border:#E5E7EB;--bg:#F9FAFB;--white:#fff;--green:#059669;--amber:#D97706;--purple:#7C3AED}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--text);background:var(--bg);line-height:1.6}
+a{color:var(--teal);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#1A7A8A 0%,#0a4a56 100%);color:#fff;padding:3.5rem 2rem 3rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,0.05)}
+.hero::after{content:'';position:absolute;bottom:-40px;left:-40px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.04)}
+.avatar{width:88px;height:88px;border-radius:50%;background:rgba(255,255,255,0.15);border:3px solid rgba(255,255,255,0.4);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;font-size:30px;font-weight:600;color:#fff;letter-spacing:1px}
+.hero h1{font-size:28px;font-weight:600;margin-bottom:6px}
+.hero .role{font-size:15px;opacity:0.88;margin-bottom:4px}
+.hero .loc{font-size:13px;opacity:0.7;margin-bottom:1.5rem}
+.hero-badges{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:1.5rem}
+.hbadge{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:20px;padding:5px 14px;font-size:12px;color:#fff;display:flex;align-items:center;gap:5px}
+.hbadge.gold{background:rgba(245,158,11,0.25);border-color:rgba(245,158,11,0.5);color:#FCD34D}
+.hero-links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.hero-links a{background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.35);border-radius:8px;padding:8px 18px;font-size:13px;color:#fff;font-weight:500;transition:background 0.2s}
+.hero-links a:hover{background:rgba(255,255,255,0.28);text-decoration:none}
+
+/* NAV */
+nav{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;display:flex;overflow-x:auto}
+nav a{padding:14px 18px;font-size:13px;font-weight:500;color:var(--muted);border-bottom:3px solid transparent;white-space:nowrap;transition:color 0.2s}
+nav a:hover{color:var(--teal);text-decoration:none}
+nav a.active{color:var(--teal);border-bottom-color:var(--teal)}
+
+/* LAYOUT */
+.container{max-width:860px;margin:0 auto;padding:2.5rem 1.5rem}
+section{display:none}
+section.active{display:block}
+
+/* CARDS */
+.card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:1.25rem}
+.card-title{font-size:16px;font-weight:600;margin-bottom:6px;color:var(--text)}
+.card-sub{font-size:13px;color:var(--muted);margin-bottom:12px}
+
+/* METRICS */
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:1.5rem}
+.metric{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.1rem;text-align:center}
+.metric-val{font-size:26px;font-weight:700;color:var(--teal)}
+.metric-lbl{font-size:12px;color:var(--muted);margin-top:3px}
+
+/* TAGS */
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tag{border-radius:6px;padding:3px 10px;font-size:12px;font-weight:500}
+.tag.blue{background:#EFF6FF;color:#1D4ED8}
+.tag.green{background:#ECFDF5;color:#065F46}
+.tag.amber{background:#FFFBEB;color:#92400E}
+.tag.purple{background:#F5F3FF;color:#5B21B6}
+.tag.teal{background:var(--teal-light);color:var(--teal-mid)}
+
+/* AWARD BANNER */
+.award-banner{background:linear-gradient(135deg,#7C3AED,#5B21B6);border-radius:12px;padding:1.5rem;color:#fff;margin-bottom:1.25rem;display:flex;align-items:center;gap:1rem}
+.award-icon{font-size:48px;flex-shrink:0}
+.award-title{font-size:18px;font-weight:700;margin-bottom:4px}
+.award-sub{font-size:13px;opacity:0.85}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:24px}
+.timeline::before{content:'';position:absolute;left:6px;top:8px;bottom:8px;width:2px;background:var(--border)}
+.tl-item{position:relative;margin-bottom:1.5rem}
+.tl-dot{position:absolute;left:-24px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--teal);border:3px solid var(--white);box-shadow:0 0 0 2px var(--teal)}
+.tl-week{font-size:12px;font-weight:600;color:var(--teal);margin-bottom:2px;text-transform:uppercase;letter-spacing:0.5px}
+.tl-title{font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px}
+.tl-desc{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* DELIVERABLES */
+.deliverable{border-left:4px solid var(--teal);padding:10px 14px;margin-bottom:12px;background:var(--teal-light);border-radius:0 8px 8px 0}
+.deliverable-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
+.deliverable-desc{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* SKILLS */
+.skill-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.skill-label{font-size:13px;color:var(--muted);width:190px;flex-shrink:0}
+.skill-bar{flex:1;height:7px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--border)}
+.skill-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--teal),#2aabb9)}
+.skill-pct{font-size:12px;color:var(--muted);width:34px;text-align:right}
+
+/* CERT CARD */
+.cert{display:flex;align-items:flex-start;gap:14px;background:var(--bg);border-radius:10px;padding:1rem;margin-bottom:12px;border:1px solid var(--border)}
+.cert-icon{width:48px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.cert-icon.teal{background:var(--teal-light)}
+.cert-icon.purple{background:#F5F3FF}
+.cert-icon.amber{background:#FFFBEB}
+.cert-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px}
+.cert-meta{font-size:12px;color:var(--muted);margin-bottom:8px}
+.pill{display:inline-block;border-radius:20px;padding:3px 12px;font-size:12px;font-weight:600}
+.pill.green{background:#ECFDF5;color:#065F46}
+.pill.teal{background:var(--teal-light);color:var(--teal-mid)}
+.pill.gray{background:var(--bg);color:var(--muted);border:1px solid var(--border)}
+
+/* BURNOUT RADAR SECTION */
+.burnout-hero{background:linear-gradient(135deg,#F0FDF4,#ECFDF5);border:1px solid #A7F3D0;border-radius:12px;padding:1.5rem;margin-bottom:1.25rem}
+.burnout-title{font-size:20px;font-weight:700;color:#065F46;margin-bottom:6px}
+.burnout-sub{font-size:13px;color:#047857;margin-bottom:1rem}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:1rem}
+.feature{background:var(--white);border:1px solid #A7F3D0;border-radius:8px;padding:12px;text-align:center}
+.feature-icon{font-size:22px;margin-bottom:6px}
+.feature-title{font-size:13px;font-weight:600;color:#065F46;margin-bottom:3px}
+.feature-desc{font-size:12px;color:#047857;line-height:1.5}
+
+/* CONTACT */
+.contact-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);font-size:14px}
+.contact-item:last-child{border-bottom:none}
+.contact-icon{width:36px;height:36px;border-radius:8px;background:var(--teal-light);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+
+/* CHAPTER GRID */
+.ch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(55px,1fr));gap:6px;margin-top:10px}
+.ch{background:var(--teal-light);border-radius:6px;padding:6px 4px;text-align:center;font-size:12px;font-weight:600;color:var(--teal-mid)}
+
+/* FOOTER */
+footer{text-align:center;padding:2rem;font-size:12px;color:var(--muted);border-top:1px solid var(--border);margin-top:2rem}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="avatar">AO</div>
+  <h1>Andrea Oquendo Araujo</h1>
+  <div class="role">IT Business Analyst · Healthcare Operations Specialist · MDRAO Certified</div>
+  <div class="loc">📍 Sudbury, Ontario, Canada</div>
+  <div class="hero-badges">
+    <span class="hbadge gold">🏆 People's Choice Award — Cambrian Innovation Challenge</span>
+    <span class="hbadge gold">🎓 MDRAO Certified — 93%</span>
+    <span class="hbadge">💼 SteriPro Canada & HSN — Permanent Position</span>
+    <span class="hbadge">🦷 Doctor of Dental Surgery</span>
+  </div>
+  <div class="hero-links">
+    <a href="https://www.linkedin.com/in/andrea-oquendo-araujo/" target="_blank">LinkedIn</a>
+    <a href="https://github.com/AndreaCambrian" target="_blank">GitHub</a>
+    <a href="mailto:[your-email]">Contact Me</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="active" onclick="show('about',this)">About</a>
+  <a href="#" onclick="show('burnout',this)">Burnout Radar</a>
+  <a href="#" onclick="show('placement',this)">Placement</a>
+  <a href="#" onclick="show('deliverables',this)">Deliverables</a>
+  <a href="#" onclick="show('skills',this)">Skills</a>
+  <a href="#" onclick="show('certs',this)">Certifications</a>
+  <a href="#" onclick="show('contact',this)">Contact</a>
+</nav>
+
+<!-- ABOUT -->
+<section id="about" class="active">
+<div class="container">
+  <div class="metrics">
+    <div class="metric"><div class="metric-val">🏆</div><div class="metric-lbl">People's Choice Award</div></div>
+    <div class="metric"><div class="metric-val">93%</div><div class="metric-lbl">MDRAO exam score</div></div>
+    <div class="metric"><div class="metric-val">14</div><div class="metric-lbl">MDRAO chapters</div></div>
+    <div class="metric"><div class="metric-val">7</div><div class="metric-lbl">weeks of placement</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">About me</div>
+    <p style="font-size:14px;color:#4B5563;line-height:1.8">I am an internationally educated dentist and healthcare professional who transitioned into IT Business Analysis through the Graduate Certificate program at Cambrian College. My career journey spans clinical dentistry, AI-driven product development, and healthcare quality management — a combination that gives me a rare perspective at the intersection of patient care, technology, and operational systems.</p>
+    <p style="font-size:14px;color:#4B5563;line-height:1.8;margin-top:10px">At Cambrian, I co-built <strong>Burnout Radar</strong> — a privacy-first AI early warning system for burnout — and won the <strong>People's Choice Award</strong> at the Cambrian Student Innovation Challenge during Research and Innovation Week. I then completed a seven-week placement with SteriPro Canada (Mississauga) and Health Sciences North (Sudbury), achieving MDRAO industry certification with 93% and earning a permanent full-time employment offer from both organizations.</p>
+    <div class="tags">
+      <span class="tag teal">IT Business Analysis</span>
+      <span class="tag green">Healthcare Operations</span>
+      <span class="tag green">MDR / Sterile Processing</span>
+      <span class="tag blue">AI / Machine Learning</span>
+      <span class="tag purple">Innovation & Entrepreneurship</span>
+      <span class="tag amber">Quality Assurance</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Education</div>
+    <div style="margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid #F3F4F6">
+      <div style="font-size:15px;font-weight:600">IT Business Analysis — Graduate Certificate</div>
+      <div style="font-size:13px;color:#6B7280">Cambrian College · Sudbury, Ontario · 2025–2026</div>
+    </div>
+    <div style="margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid #F3F4F6">
+      <div style="font-size:15px;font-weight:600">AI & Machine Learning</div>
+      <div style="font-size:13px;color:#6B7280">Cambrian College · Sudbury, Ontario</div>
+    </div>
+    <div>
+      <div style="font-size:15px;font-weight:600">Doctor of Dental Surgery (DDS)</div>
+      <div style="font-size:13px;color:#6B7280">International credential · Prior to Canada</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- BURNOUT RADAR -->
+<section id="burnout">
+<div class="container">
+  <div class="award-banner">
+    <div class="award-icon">🏆</div>
+    <div>
+      <div class="award-title">People's Choice Award — Cambrian Student Innovation Challenge</div>
+      <div class="award-sub">Research and Innovation Week · Cambrian College · Hanson Venture Lab · 2026<br>Co-built with Avneet Kaur. Voted by the audience — not the judges. The people in that room said: this problem matters.</div>
+    </div>
+  </div>
+
+  <div class="burnout-hero">
+    <div class="burnout-title">🧠 Burnout Radar</div>
+    <div class="burnout-sub">The privacy-first early warning system for human well-being — stopping the silent collapse before it starts.</div>
+    <p style="font-size:14px;color:#047857;line-height:1.7">Burnout costs the global economy billions — but the human cost is immeasurable. Current tools require constant monitoring through wearables or invasive therapy, creating a "Patient Adherence Gap" where people quit because it feels like work. Burnout Radar changes that.</p>
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-icon">⏱️</div>
+        <div class="feature-title">30-second check-in</div>
+        <div class="feature-desc">No daily tracking. Just energy, stress, and sleep — once a week.</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📈</div>
+        <div class="feature-title">Explainable trend AI</div>
+        <div class="feature-desc">Builds a Personal Baseline to detect subtle deviations unique to you.</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-title">On-device processing</div>
+        <div class="feature-desc">No sensitive data ever leaves your phone. Inspired by the Cogito Pal model.</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">💬</div>
+        <div class="feature-title">The nudge system</div>
+        <div class="feature-desc">Personalized, non-intrusive actions to manage stress — before performance declines.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Privacy-first architecture</div>
+    <div class="card-sub">HIPAA/GDPR compliance built-in, not added on</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div style="background:#F0FDF4;border-radius:8px;padding:12px">
+        <div style="font-size:13px;font-weight:600;color:#065F46;margin-bottom:4px">On-device processing</div>
+        <div style="font-size:12px;color:#047857">No sensitive mental health data ever leaves the user's phone.</div>
+      </div>
+      <div style="background:#F0FDF4;border-radius:8px;padding:12px">
+        <div style="font-size:13px;font-weight:600;color:#065F46;margin-bottom:4px">Aggregated insights</div>
+        <div style="font-size:12px;color:#047857">Organizations see the "weather report" — team health, never the individual.</div>
+      </div>
+      <div style="background:#F0FDF4;border-radius:8px;padding:12px">
+        <div style="font-size:13px;font-weight:600;color:#065F46;margin-bottom:4px">No stigma</div>
+        <div style="font-size:12px;color:#047857">A supportive companion, not a medical diagnosis.</div>
+      </div>
+      <div style="background:#F0FDF4;border-radius:8px;padding:12px">
+        <div style="font-size:13px;font-weight:600;color:#065F46;margin-bottom:4px">Scalability</div>
+        <div style="font-size:12px;color:#047857">Multi-language support and zero server costs at scale due to offline AI.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Target markets & impact</div>
+    <div class="tags">
+      <span class="tag green">Corporate Wellness</span>
+      <span class="tag blue">Academic Institutions</span>
+      <span class="tag teal">Healthcare Providers</span>
+    </div>
+    <p style="font-size:13px;color:#4B5563;margin-top:12px;line-height:1.7">Burnout doesn't announce itself. It doesn't send a warning. We will.</p>
+    <p style="font-size:13px;color:#4B5563;margin-top:8px;line-height:1.7">Built during Cambrian's Research and Innovation Week with the support of the Hanson Venture Lab, mentors Mélissa Deschênes, Yousef Elarian, Nathan A., Brian P. Vendramin, and Jenna Guse, and the Cambrian R&D team.</p>
+  </div>
+</div>
+</section>
+
+<!-- PLACEMENT -->
+<section id="placement">
+<div class="container">
+  <div class="card">
+    <div class="card-title">Work placement — SteriPro Canada & HSN</div>
+    <div class="card-sub">May 11 – June 26, 2026 · Mississauga, ON (Weeks 1–5) & Sudbury, ON (Weeks 6–8)</div>
+    <p style="font-size:14px;color:#4B5563;line-height:1.7">Seven-week placement at SteriPro Canada — Canada's leading ISO-certified Medical Device Reprocessing provider, headquartered at 6580 Northwest Drive, Mississauga — and Health Sciences North. The first five weeks required relocating to Mississauga. Weekly meetings were held with COO Vikram, Plant Manager Afshin, and Manager Abiye throughout; expanded to include the full HSN team (Steve, James, Bryan, Roch, and Chantel) in the final weeks.</p>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-week">Week 1 · May 11–16</div>
+      <div class="tl-title">Decontamination — Mississauga HQ</div>
+      <div class="tl-desc">H&S orientation, instrument sorting & disassembly, manual/hand wash, washer-disinfector operations, daily tests, detergent/dosing, robotics & ultrasonic cleaning. MDRAO Chapters 1–6.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-week">Week 2 · May 18–23</div>
+      <div class="tl-title">Surgical Tray System (STS)</div>
+      <div class="tl-desc">STS philosophy, recipe creation, lasering & initialization, set traceability, CRF, discrepancy reporting, inventory management, repair/replace. MDRAO Chapters 7–8.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-week">Week 3 · May 25–30</div>
+      <div class="tl-title">Clean Assembly</div>
+      <div class="tl-desc">Inspection & testing methods, assembly techniques, wrapping, workload breakdown, loaner instruments, production binder review (including endoscope procedures). MDRAO Chapters 9–10.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-week">Week 4 · June 1–6</div>
+      <div class="tl-title">Sterilization</div>
+      <div class="tl-desc">Steam & H₂O₂ cycles, load configuration, sterilization parameters, BI/CI verification, daily diagnostics, requalification procedure. MDRAO Chapter 11.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-week">Week 5 · June 8–13</div>
+      <div class="tl-title">Production, Admin & AO Reprocessing</div>
+      <div class="tl-desc">Load & product release, dispatching, case cart picking AO1, shift reports, productivity tracking, incident reports, Getinge service requests, dock-to-dock sweeps, AO full reprocessing cycle. MDRAO Chapters 12–13.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-week">Weeks 6–7 · June 15–25</div>
+      <div class="tl-title">Quality Assurance — Sudbury</div>
+      <div class="tl-desc">Passivation, SOP development, change control (3M→Steris vendor transition), incident management, HSN event log tracking, water sampling program. MDRAO Chapters 1 & 14.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-week">Weeks 7–8 · June 11–26</div>
+      <div class="tl-title">HSN Hospital Program</div>
+      <div class="tl-desc">ChronoMedic orientation (management & technician views), leadership structure, MDRD/OR/clinics, hospital & department tour, HSN CBA review. Meetings with HSN leadership team.</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:1.5rem;background:linear-gradient(135deg,#E6F4F6,#d0eef2);border-color:#9DD6E0">
+    <div class="card-title" style="color:#0f5a67">Outcome: permanent full-time employment offer</div>
+    <p style="font-size:14px;color:#1A7A8A;line-height:1.7">At the conclusion of the placement, both SteriPro Canada and Health Sciences North extended a permanent full-time employment offer — the most meaningful possible validation of placement performance in a highly regulated, quality-critical healthcare environment.</p>
+  </div>
+</div>
+</section>
+
+<!-- DELIVERABLES -->
+<section id="deliverables">
+<div class="container">
+  <p style="font-size:14px;color:#4B5563;margin-bottom:1.5rem">Key documents and contributions produced during the placement at SteriPro Canada and Health Sciences North.</p>
+
+  <div class="deliverable">
+    <div class="deliverable-title">SOP — Steam Chemical Integrator Verification (Cool-Down)</div>
+    <div class="deliverable-desc">Standard Operating Procedure developed in both SteriPro and HSN document formats for the verification of steam chemical integrators during post-sterilization cool-down inspection. Drafted iteratively with QA supervisor Leah Deelipchand, incorporating CSA standards and OneSource IFU reference.</div>
+    <div class="tags"><span class="tag teal">Documentation</span><span class="tag green">Quality Assurance</span><span class="tag blue">SOP Development</span></div>
+  </div>
+
+  <div class="deliverable">
+    <div class="deliverable-title">Change Control Package — 3M to Steris Vendor Transition (Simulated)</div>
+    <div class="deliverable-desc">Complete change control documentation including SteriPro and HSN forms, a change impact assessment covering workflow adjustments, training needs, process updates, and implementation timeline for a simulated steam chemical integrator supplier transition.</div>
+    <div class="tags"><span class="tag purple">Change Management</span><span class="tag green">Quality Assurance</span><span class="tag amber">Risk Assessment</span></div>
+  </div>
+
+  <div class="deliverable">
+    <div class="deliverable-title">Technician Training Materials & Group Training Record</div>
+    <div class="deliverable-desc">Training package for MDR technicians covering Steris steam chemical integrators — product introduction, interpretation requirements, procedural considerations — plus a group training record for compliance documentation of the simulated implementation.</div>
+    <div class="tags"><span class="tag amber">Training Development</span><span class="tag teal">Stakeholder Engagement</span><span class="tag blue">Instructional Design</span></div>
+  </div>
+
+  <div class="deliverable">
+    <div class="deliverable-title">Incident Report Conversion — SteriPro to HSN Format</div>
+    <div class="deliverable-desc">Systematic conversion of SteriPro incident reports into HSN's incident reporting format, mapping classification categories, root cause analysis, corrective action assignments, and responsible party documentation between both organizational systems.</div>
+    <div class="tags"><span class="tag teal">Documentation</span><span class="tag green">Incident Management</span><span class="tag blue">Gap Analysis</span></div>
+  </div>
+
+  <div class="deliverable">
+    <div class="deliverable-title">HSN Event Log Tracking Contributions</div>
+    <div class="deliverable-desc">Multiple entries completed within the HSN Event Log Tracking system covering event categorization, investigation documentation, and corrective action tracking per HSN quality management standards.</div>
+    <div class="tags"><span class="tag green">Quality Systems</span><span class="tag teal">HSN</span></div>
+  </div>
+
+  <div class="deliverable">
+    <div class="deliverable-title">Operational Documentation — Shift Reports, Transportation Logs</div>
+    <div class="deliverable-desc">Production of shift reports, productivity records, transportation logs, and Getinge service request documentation throughout the Week 5 production and administrative operations rotation.</div>
+    <div class="tags"><span class="tag amber">Operations</span><span class="tag blue">Production</span></div>
+  </div>
+</div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+<div class="container">
+  <div class="card">
+    <div class="card-title">Business analysis</div>
+    <div style="margin-top:12px">
+      <div class="skill-row"><span class="skill-label">Requirements elicitation</span><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div><span class="skill-pct">90%</span></div>
+      <div class="skill-row"><span class="skill-label">Process analysis</span><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div><span class="skill-pct">90%</span></div>
+      <div class="skill-row"><span class="skill-label">Gap analysis</span><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div><span class="skill-pct">85%</span></div>
+      <div class="skill-row"><span class="skill-label">Documentation development</span><div class="skill-bar"><div class="skill-fill" style="width:92%"></div></div><span class="skill-pct">92%</span></div>
+      <div class="skill-row"><span class="skill-label">Stakeholder engagement</span><div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div><span class="skill-pct">88%</span></div>
+      <div class="skill-row"><span class="skill-label">Change management</span><div class="skill-bar"><div class="skill-fill" style="width:83%"></div></div><span class="skill-pct">83%</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Healthcare & MDR</div>
+    <div style="margin-top:12px">
+      <div class="skill-row"><span class="skill-label">Sterile processing (MDR)</span><div class="skill-bar"><div class="skill-fill" style="width:93%"></div></div><span class="skill-pct">93%</span></div>
+      <div class="skill-row"><span class="skill-label">Quality assurance</span><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div><span class="skill-pct">90%</span></div>
+      <div class="skill-row"><span class="skill-label">SOP development</span><div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div><span class="skill-pct">88%</span></div>
+      <div class="skill-row"><span class="skill-label">Incident management</span><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div><span class="skill-pct">85%</span></div>
+      <div class="skill-row"><span class="skill-label">CSA standards</span><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div><span class="skill-pct">80%</span></div>
+      <div class="skill-row"><span class="skill-label">Clinical dentistry</span><div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div><span class="skill-pct">95%</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Technology & AI</div>
+    <div style="margin-top:12px">
+      <div class="skill-row"><span class="skill-label">AI / Machine Learning</span><div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div><span class="skill-pct">82%</span></div>
+      <div class="skill-row"><span class="skill-label">ChronoMedic</span><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div><span class="skill-pct">80%</span></div>
+      <div class="skill-row"><span class="skill-label">Surgical Tray System (STS)</span><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div><span class="skill-pct">85%</span></div>
+      <div class="skill-row"><span class="skill-label">Microsoft Office Suite</span><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div><span class="skill-pct">90%</span></div>
+      <div class="skill-row"><span class="skill-label">OneSource / IFUs</span><div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div><span class="skill-pct">78%</span></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certs">
+<div class="container">
+  <div class="cert">
+    <div class="cert-icon teal">🏅</div>
+    <div>
+      <div class="cert-title">MDRAO MDR Techniques Certification</div>
+      <div class="cert-meta">Medical Device Reprocessing Association of Ontario · June 20, 2026</div>
+      <span class="pill green">PASS</span>
+      <span class="pill teal" style="margin-left:6px">Score: 93%</span>
+      <span style="font-size:12px;color:#6B7280;margin-left:8px">46 of 120 minutes used · All 14 chapters completed</span>
+    </div>
+  </div>
+
+  <div class="cert">
+    <div class="cert-icon purple">🏆</div>
+    <div>
+      <div class="cert-title">People's Choice Award — Cambrian Student Innovation Challenge</div>
+      <div class="cert-meta">Hanson Venture Lab · Cambrian College Research and Innovation Week · 2026</div>
+      <span class="pill" style="background:#F5F3FF;color:#5B21B6">Burnout Radar — co-built with Avneet Kaur</span>
+    </div>
+  </div>
+
+  <div class="cert">
+    <div class="cert-icon teal">🎓</div>
+    <div>
+      <div class="cert-title">IT Business Analysis Graduate Certificate</div>
+      <div class="cert-meta">Cambrian College · Sudbury, Ontario · 2025–2026</div>
+      <span class="pill teal">In progress</span>
+    </div>
+  </div>
+
+  <div class="cert">
+    <div class="cert-icon amber">🦷</div>
+    <div>
+      <div class="cert-title">Doctor of Dental Surgery (DDS)</div>
+      <div class="cert-meta">International credential</div>
+      <span class="pill gray">Clinical background</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">MDRAO course — all 14 chapters completed</div>
+    <div class="card-sub">Full MDR Techniques curriculum covering decontamination through quality systems</div>
+    <div class="ch-grid">
+      <div class="ch">Ch. 1</div><div class="ch">Ch. 2</div><div class="ch">Ch. 3</div>
+      <div class="ch">Ch. 4</div><div class="ch">Ch. 5</div><div class="ch">Ch. 6</div>
+      <div class="ch">Ch. 7</div><div class="ch">Ch. 8</div><div class="ch">Ch. 9</div>
+      <div class="ch">Ch. 10</div><div class="ch">Ch. 11</div><div class="ch">Ch. 12</div>
+      <div class="ch">Ch. 13</div><div class="ch">Ch. 14</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+<div class="container">
+  <div class="card">
+    <div class="card-title">Get in touch</div>
+    <div style="margin-top:12px">
+      <div class="contact-item">
+        <div class="contact-icon">👤</div>
+        <div><div style="font-weight:600;font-size:14px">Andrea Oquendo Araujo</div><div style="font-size:12px;color:#6B7280">IT Business Analyst · MDRAO Certified · People's Choice Award Winner</div></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📧</div>
+        <a href="mailto:[your-email]" style="font-size:14px">[your email address]</a>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">💼</div>
+        <a href="https://www.linkedin.com/in/andrea-oquendo-araujo/" target="_blank" style="font-size:14px">linkedin.com/in/andrea-oquendo-araujo</a>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">💻</div>
+        <a href="https://github.com/AndreaCambrian" target="_blank" style="font-size:14px">github.com/AndreaCambrian</a>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <span style="font-size:14px">Sudbury, Ontario, Canada</span>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">✅</div>
+        <span style="font-size:14px;color:#1A7A8A;font-weight:600">Permanent position — SteriPro Canada & Health Sciences North (June 2026)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">About this portfolio</div>
+    <p style="font-size:13px;color:#6B7280;line-height:1.7">Created as part of the IT Business Analysis Graduate Certificate placement program at Cambrian College (2026). Showcases academic projects, the Burnout Radar innovation award, and the skills and deliverables developed during a seven-week placement with SteriPro Canada and Health Sciences North.</p>
+  </div>
+</div>
+</section>
+
+<footer>
+  Andrea Oquendo Araujo · IT Business Analysis · Cambrian College 2026 ·
+  <a href="https://www.linkedin.com/in/andrea-oquendo-araujo/">LinkedIn</a>
+</footer>
+
+<script>
+function show(id, el) {
+  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  el.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  return false;
+}
+</script>
+</body>
+</html>
